@@ -1,51 +1,1 @@
-package yarg
-{
-  import flash.display.MovieClip;
-  import com.carlsverre.yagf.KeyManager;
-
-public class Runner extends MovieClip
-{
-  private Array states = ["idle", "running"];
-  private String state = states[0];
-  
-  // Physics
-  private var acceleration:Point;
-  private var velocity:Point;
-  private var maxVelocity:Point;
-  private var position:Point;
-  private var lastPosition:Point;
-	
-	public function Runner()
-	{
-	  
-	}
-	
-	public function Reset(x:int, y:int, accelX:int, accelY:int, maxVelX:int, maxVelY:int):void {
-	  position = new Point(x,y);
-	  lastPosition = new Point(x,y);
-	  
-	  acceleration = new Point(accelX, accelY);
-	  velocity = new Point(0,0);
-	  maxVelocity = new Point(maxVelX, maxVelY);
-	}
-	
-	public function Update(delta:Number):void {
-	  if(KeyManager.ActionPressed("right")) {
-	    velocity += acceleration.x * ;
-	  }
-	  if(KeyManager.ActionPressed("left")) {
-	    velocity -= acceleration.x;
-	  }
-	  
-	  
-	}
-	
-	public function Draw():void {
-	  x = position.x;
-	  y = position.y;
-	}
-	
-}
-
-}
-
+﻿package yarg{  import flash.display.MovieClip;  import com.carlsverre.yagf.KeyManager;  import flash.geom.Point;public class Runner extends MovieClip{  private static const STATE_IDLE:String = "idle";  private static const STATE_JUMP:String = "jump";  private static const STATE_RUNNING:String = "running";    private var state:String = STATE_IDLE;    // Physics  private var acceleration:Point;  private var velocity:Point;  private var maxVelocity:Point;  private var position:Point;  private var lastPosition:Point;		private function changeState(newState:String):void {	  if(state != newState) {	    state = newState;	    gotoAndPlay(state);    }	}		public function Reset(x:int, y:int, accelX:int, accelY:int, maxVelX:int, maxVelY:int):void {	  position = new Point(x,y);	  lastPosition = new Point(x,y);	  	  acceleration = new Point(accelX, accelY);	  velocity = new Point(0,0);	  maxVelocity = new Point(maxVelX, maxVelY);	}		public function Update(delta:Number):void {	  lastPosition.x = position.x;	  lastPosition.y = position.y;	  	  if(KeyManager.ActionPressed("right")) {	    velocity.x += acceleration.x * delta;	  }	  if(KeyManager.ActionPressed("left")) {	    velocity.x -= acceleration.x * delta;	  }	  	  velocity.x = (velocity.x > maxVelocity.x) ? maxVelocity.x : velocity.x;	  velocity.y = (velocity.y > maxVelocity.y) ? maxVelocity.y : velocity.y;	  	  position.x += velocity.x;	  position.y += velocity.y;	  	  // update state	  if(velocity.y != 0) changeState(STATE_JUMP);	  else if(velocity.x != 0) changeState(STATE_RUNNING);	  else changeState(STATE_IDLE);	  	  // update direction	  if(velocity.x > 0) scaleX = 1;	  else scaleX = -1;	}		public function Draw():void {	  x = position.x;	  y = position.y;	}	}}
