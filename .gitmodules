@@ -1,0 +1,3 @@
+[submodule "lib/YAGF"]
+	path = lib/YAGF
+	url = git://github.com/carlsverre/YAGF.git
