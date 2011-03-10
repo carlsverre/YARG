@@ -6,6 +6,7 @@ package yarg
   import com.carlsverre.yagf.SimpleTF;
   import com.carlsverre.yagf.YAGF;
   import com.coreyoneil.collision.CollisionList;
+  import flash.geom.Point;
 
   public class RunningGame extends Game
   {
@@ -28,7 +29,11 @@ package yarg
       // Create the runner
   		runner = new Runner();
   		addChild(runner);
-  		runner.Reset(50, stage.stageHeight - 100, 20, 20, 15, 15, 0, 10);
+  		runner.Reset(50, stage.stageHeight - 100);
+      runner.Acceleration = new Point(20, 15);
+      runner.MaxVelocity = new Point(15, 15);
+      runner.Gravity = new Point(0, .8);
+      runner.Friction = new Point(.98, .98);
       
       collisionList = new CollisionList(runner, level);
       collisionList.returnAngle = true;
@@ -42,6 +47,9 @@ package yarg
       level.Update(delta);
 	    runner.Update(delta);
       
+      runner.Draw();
+      level.Draw();
+      
       var collisions:Array = collisionList.checkCollisions();
       if (collisions.length > 0) {
         runner.CollideWith(collisions[0]);
@@ -49,8 +57,8 @@ package yarg
 	  }
 	  
 	  public override function Draw():void {
-      level.Draw();
-	    runner.Draw();
+      //level.Draw();
+	    //runner.Draw();
 	  }
   }
 

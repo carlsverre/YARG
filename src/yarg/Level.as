@@ -1,5 +1,7 @@
 package yarg
 {
+  import com.carlsverre.yagf.Key;
+  import com.carlsverre.yagf.KeyManager;
   import flash.display.Graphics;
   import flash.display.Sprite;
   import flash.geom.Rectangle;
@@ -41,7 +43,7 @@ package yarg
       buildingColor = color;
       
       // add first building
-      buildings.push(new Rectangle(0, stage.stageHeight - BASELINE, MAX_WIDTH, stage.stageHeight));
+      buildings.push(new Rectangle(0, stage.stageHeight - BASELINE, MAX_WIDTH, BASELINE));
       
       updateBuildingsArray();
     }
@@ -65,7 +67,7 @@ package yarg
         
         var maybeNeg:int = (Math.random() > .5) ? -1 : 1;
         var newY:Number = lastBuilding.top + (maybeNeg * (Math.random() * MAX_HEIGHT_DIFF));
-        if (newY < MAX_HEIGHT) newX = MAX_HEIGHT;
+        if (newY < MAX_HEIGHT) newY = MAX_HEIGHT;
         if (newY > stage.stageHeight - MIN_HEIGHT) newY = stage.stageHeight - MIN_HEIGHT;
         
         var newWidth:int = MIN_WIDTH + (Math.random() * MAX_WIDTH);
