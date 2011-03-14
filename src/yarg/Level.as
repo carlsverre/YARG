@@ -26,7 +26,7 @@ package yarg
     private static const MAX_WIDTH:int = 400;
     
     // maximum distance between buildings
-    private static const MAX_SPACE:int = 100;
+    private static const MAX_SPACE:int = 200;
     
     // the maximum different between two building heights
     private static const MAX_HEIGHT_DIFF:int = 100;

@@ -24,7 +24,7 @@ package yarg
       // Create the level
       level = new Level();
       addChild(level);
-      level.Reset(40, 80, 0xcccccc);
+      level.Reset(40, 300, 0xcccccc);
         
       // Create the runner
   		runner = new Runner();
